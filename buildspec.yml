@@ -1,0 +1,23 @@
+# define versions and phases for the build
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Running JUnit Tests on `date`
+      - mvn test
+  
+  build:
+    commands:
+      - echo Maven build started on 1date1
+      - mvn clean package
+  
+artifacts:
+  files:
+    - target/servlet-mockito-0.0.1-SNAPSHOT.war
+    - .ebextensions/**/*
+
+eb_codebuild_settings:
+  CodeBuildServiceRole: Aws-CodePipeline-Service
+  ComputeType: BUILD_GENERAL1_SMALL
+  Image: aws/codebuild/java:openjdk-8
